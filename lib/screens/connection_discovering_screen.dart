@@ -56,7 +56,7 @@ class _ConnectionDiscoveringScreenState
 
   Future<void> startDiscovery() async {
     try {
-      bool a = await Nearby().startDiscovery(
+      bool start = await Nearby().startDiscovery(
         userName,
         strategy,
         onEndpointFound: (id, name, serviceId) {
@@ -70,9 +70,20 @@ class _ConnectionDiscoveringScreenState
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text("id: $id"),
+                      // Text("id: $id"),
+                      // Text("Name: $name"),
+                      // Text("ServiceId: $serviceId"),
+                      Text("Id: $id"),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text("Name: $name"),
-                      Text("ServiceId: $serviceId"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.deepPurpleAccent,
@@ -204,10 +215,19 @@ class _ConnectionDiscoveringScreenState
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("id: $id"),
-              Text("Token: ${info.authenticationToken}"),
-              Text("Name${info.endpointName}"),
-              Text("Incoming: ${info.isIncomingConnection}"),
+              // Text("id: $id"),
+              // Text("Token: ${info.authenticationToken}"),
+              // Text("Name${info.endpointName}"),
+              // Text("Incoming: ${info.isIncomingConnection}"),
+              Text("Id: $id"),
+              SizedBox(
+                height: 10,
+              ),
+              // Text("Token: ${info.authenticationToken}"),
+              Text("Name: ${info.endpointName}"),
+              SizedBox(
+                height: 10,
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurpleAccent,
@@ -390,7 +410,19 @@ class _ConnectionDiscoveringScreenState
               },
             ),
           ),
-          Text("Number of connected devices: ${endpointMap.length}"),
+          Padding(
+            padding: const EdgeInsets.all(25),
+            child: Text(
+              "Number of connected devices: ${endpointMap.length}",
+              style: TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 45, 7, 54),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 16.0,
+          )
         ],
       ),
     );

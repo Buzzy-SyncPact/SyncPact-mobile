@@ -88,6 +88,7 @@ class _ConnectionAdvertisingScreenState
   void showSnackbar(dynamic a) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(a.toString()),
+      dismissDirection: DismissDirection.horizontal,
     ));
   }
 
@@ -99,10 +100,19 @@ class _ConnectionAdvertisingScreenState
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("id: $id"),
-              Text("Token: ${info.authenticationToken}"),
-              Text("Name${info.endpointName}"),
-              Text("Incoming: ${info.isIncomingConnection}"),
+              // Text("id: $id"),
+              // Text("Token: ${info.authenticationToken}"),
+              // Text("Name${info.endpointName}"),
+              // Text("Incoming: ${info.isIncomingConnection}"),
+              Text("Id   : $id"),
+              SizedBox(
+                height: 10,
+              ),
+              // Text("Token: ${info.authenticationToken}"),
+              Text("Name : ${info.endpointName}"),
+              SizedBox(
+                height: 10,
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurpleAccent,

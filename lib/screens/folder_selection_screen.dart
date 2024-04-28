@@ -163,7 +163,7 @@ class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
             ),
           ),
           child: const Text(
-            'Backup',
+            'Continue',
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
         ),
