@@ -112,105 +112,6 @@ class _PermissionScreenState extends State<PermissionScreen> {
     print(isBluetoothPermissionGranted);
   }
 
-  Future<void> startAdvertising() async {
-    try {
-      await Nearby().startAdvertising(
-        userName,
-        strategy,
-        onConnectionInitiated: onConnectionInit,
-        onConnectionResult: (id, status) {
-          showSnackbar(status);
-        },
-        onDisconnected: (id) {
-          showSnackbar(
-              "Disconnected: ${endpointMap[id]!.endpointName}, id $id");
-          setState(() {
-            endpointMap.remove(id);
-          });
-        },
-      );
-      showSnackbar("ADVERTISING");
-    } catch (exception) {
-      print('button pressed!');
-      showSnackbar(exception);
-    }
-  }
-
-  void showSnackbar(dynamic a) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(a.toString()),
-    ));
-  }
-
-  void onConnectionInit(String id, ConnectionInfo info) {
-    showModalBottomSheet(
-      context: context,
-      builder: (builder) {
-        return Center(
-          child: Column(
-            children: <Widget>[
-              Text("id: $id"),
-              Text("Token: ${info.authenticationToken}"),
-              Text("Name${info.endpointName}"),
-              Text("Incoming: ${info.isIncomingConnection}"),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurpleAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                child: const Text(
-                  "Accept Connection",
-                  style: TextStyle(color: Colors.white, fontSize: 16.0),
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    endpointMap[id] = info;
-                  });
-                  Nearby().acceptConnection(
-                    id,
-                    onPayLoadRecieved: (endid, payload) async {
-                      // Handle payload received
-                    },
-                    onPayloadTransferUpdate: (endid, payloadTransferUpdate) {
-                      // Handle payload transfer updates
-                    },
-                  );
-                },
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurpleAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                child: const Text(
-                  "Reject Connection",
-                  style: TextStyle(color: Colors.white, fontSize: 16.0),
-                ),
-                onPressed: () async {
-                  Navigator.pop(context);
-                  try {
-                    await Nearby().rejectConnection(id);
-                  } catch (e) {
-                    showSnackbar(e);
-                  }
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Color getTextColor(bool permissionGranted) {
-    return permissionGranted ? Colors.black45 : Colors.white;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -318,23 +219,6 @@ class _PermissionScreenState extends State<PermissionScreen> {
                 onChanged: null,
               ),
             ),
-            const Divider(),
-            const SizedBox(height: 16),
-            const Text(
-              "Location Enabled",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            ListTile(
-              title: Text(locationEnabled ? "Enabled" : "Disabled"),
-              leading: Checkbox(
-                value: locationEnabled,
-                onChanged: null,
-              ),
-            ),
-            const SizedBox(height: 16),
             Expanded(
               child: Align(
                 alignment: FractionalOffset.bottomCenter,
