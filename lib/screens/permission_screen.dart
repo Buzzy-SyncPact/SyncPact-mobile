@@ -272,7 +272,10 @@ class _PermissionScreenState extends State<PermissionScreen> {
                     : requestStoragePermission,
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurpleAccent),
-                child: const Text("Grant Permission"),
+                child: const Text(
+                  "Grant Permission",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               onTap: externalStoragePermissionGranted
                   ? null
