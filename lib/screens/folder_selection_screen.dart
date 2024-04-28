@@ -13,12 +13,15 @@ class FolderSelectionScreen extends StatefulWidget {
 }
 
 class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
+  // Folder selected_folder =
+  //     Folder('', Directory('/storage/emulated/0/SyncPact'));
   late Folder selected_folder;
   List<FileSystemEntity> files = [];
 
   @override
   void initState() {
     super.initState();
+    // selected_folder = Folder('', Directory(''));
     pickDirectory();
   }
 
@@ -89,7 +92,6 @@ class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: const Text('Selected Files'),
         title: const Text(
           "SyncPact",
           style: TextStyle(
@@ -101,30 +103,50 @@ class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
         backgroundColor: Colors.deepPurpleAccent,
         foregroundColor: Colors.white,
       ),
-      body: ListView.builder(
-        itemCount: files.length,
-        itemBuilder: (context, index) {
-          FileSystemEntity file = files[index];
-          String fileName = file.path.split('/').last;
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: const Text(
+                  "Selected Folders",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )),
+          Expanded(
+            child: ListView.builder(
+              itemCount: files.length,
+              itemBuilder: (context, index) {
+                FileSystemEntity file = files[index];
+                String fileName = file.path.split('/').last;
 
-          // Determine the icon based on the file type
-          IconData fileIcon;
-          if (file is File) {
-            fileIcon = Icons.insert_drive_file;
-          } else if (file is Directory) {
-            fileIcon = Icons.folder;
-          } else {
-            fileIcon = Icons.attachment;
-          }
+                // Determine the icon based on the file type
+                IconData fileIcon;
+                if (file is File) {
+                  fileIcon = Icons.insert_drive_file;
+                } else if (file is Directory) {
+                  fileIcon = Icons.folder;
+                } else {
+                  fileIcon = Icons.attachment;
+                }
 
-          return ListTile(
-            leading: Icon(fileIcon),
-            title: Text(fileName),
-            onTap: () {
-              // Handle file selection if needed
-            },
-          );
-        },
+                return ListTile(
+                  leading: Icon(fileIcon),
+                  title: Text(fileName),
+                  onTap: () {
+                    // Handle file selection if needed
+                  },
+                );
+              },
+            ),
+          )
+        ],
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -141,7 +163,7 @@ class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
             ),
           ),
           child: const Text(
-            'Backup',
+            'Continue',
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
         ),
