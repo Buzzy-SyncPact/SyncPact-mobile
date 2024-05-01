@@ -37,7 +37,6 @@ class _SplashScreenState extends State<SplashScreen>
   void navigateToHomeScreen() {
     Navigator.pushReplacement(
       context,
-      // MaterialPageRoute(builder: (context) => const PermissionScreen()),
       MaterialPageRoute(builder: (context) => const LandingScreen()),
     );
   }
@@ -57,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
               child: Image.asset(
-                'assets/logo.png', // Replace with your logo file path
+                'assets/logo.png',
                 height: 700,
                 width: 150,
               ),

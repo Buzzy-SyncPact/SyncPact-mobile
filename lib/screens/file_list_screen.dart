@@ -35,7 +35,6 @@ class _FileListScreenState extends State<FileListScreen> {
 
   Future<void> fetchFiles() async {
     try {
-      // final appDir = await getApplicationDocumentsDirectory();
       String appDir = (await getExternalStorageDirectory())!.absolute.path;
       final filesDir = Directory(appDir);
       List<FileSystemEntity> entities = await filesDir.list().toList();
@@ -47,7 +46,6 @@ class _FileListScreenState extends State<FileListScreen> {
         files = updatedFiles;
       });
     } catch (e) {
-      // Handle any error that occurs during file listing
       print('Error fetching files: $e');
     }
   }
@@ -67,7 +65,7 @@ class _FileListScreenState extends State<FileListScreen> {
           return Icons.insert_drive_file;
       }
     }
-    return Icons.insert_drive_file; // Default file icon
+    return Icons.insert_drive_file;
   }
 
   @override
@@ -101,7 +99,7 @@ class _FileListScreenState extends State<FileListScreen> {
                 ),
               )),
           const SyncStatusWidget(
-            lastSyncTime: 'Last synced: 10:30 AM', // Add last synced time here
+            lastSyncTime: 'Last synced: 10:30 AM',
             isSyncing: false,
           ),
           const Divider(),

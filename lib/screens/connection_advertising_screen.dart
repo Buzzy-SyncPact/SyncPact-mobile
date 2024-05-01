@@ -35,10 +35,9 @@ class _ConnectionAdvertisingScreenState
   static Map<String, ConnectionInfo> endpointMap = {};
   bool isBackup = true;
 
-  String? tempFileUri; //reference to the file currently being transferred
+  String? tempFileUri;
   static String? tempDirectoryName;
-  static Map<int, String> map =
-      {}; //store filename mapped to corresponding payloadId
+  static Map<int, String> map = {};
 
   @override
   void initState() {
@@ -46,37 +45,12 @@ class _ConnectionAdvertisingScreenState
     startAdvertising();
   }
 
-  // @override
-  // void dispose() {
-  //   stopAdvertising();
-  //   super.dispose();
-  // }
-
   Map<String, ConnectionInfo> getEndPointMap() {
     return endpointMap;
   }
 
   Future<void> startAdvertising() async {
-    try {
-      bool a = await Nearby().startAdvertising(
-        userName,
-        strategy,
-        onConnectionInitiated: onConnectionInit,
-        onConnectionResult: (id, status) {
-          // showSnackbar("Starting network");
-        },
-        onDisconnected: (id) {
-          showSnackbar(
-              // "Disconnected: ${endpointMap[id]!.endpointName}, id $id");
-              "Device Disconnected");
-          setState(() {
-            endpointMap.remove(id);
-          });
-        },
-      );
-      // showSnackbar("ADVERTISING: " + a.toString());
-    } catch (exception) {
-      // showSnackbar(exception);
+    try {} catch (exception) {
       print(exception);
     }
   }
@@ -100,15 +74,10 @@ class _ConnectionAdvertisingScreenState
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // Text("id: $id"),
-              // Text("Token: ${info.authenticationToken}"),
-              // Text("Name${info.endpointName}"),
-              // Text("Incoming: ${info.isIncomingConnection}"),
               Text("Id   : $id"),
               SizedBox(
                 height: 10,
               ),
-              // Text("Token: ${info.authenticationToken}"),
               Text("Name : ${info.endpointName}"),
               SizedBox(
                 height: 10,
@@ -186,11 +155,9 @@ class _ConnectionAdvertisingScreenState
                               showSnackbar("--- --- --- File doesn't exist");
                             }
                           } else {
-                            //add to map if not already
                             map[payloadId] = fileName;
                           }
                         }
-                        // showSnackbar(endid + ": " + str);
                       } else if (payload.type == PayloadType.FILE) {
                         showSnackbar("File transfer started");
                         tempFileUri = payload.uri;
@@ -208,7 +175,6 @@ class _ConnectionAdvertisingScreenState
                       } else if (payloadTransferUpdate.status ==
                           PayloadStatus.SUCCESS) {
                         print("--- --- --- Payload transfer successful.");
-                        // showSnackbar("File transfer successful");
 
                         if (map.containsKey(payloadTransferUpdate.id)) {
                           //rename the file now
@@ -240,7 +206,6 @@ class _ConnectionAdvertisingScreenState
                   try {
                     await Nearby().rejectConnection(id);
                   } catch (e) {
-                    // showSnackbar(e);
                     print(e);
                   }
                 },
@@ -274,17 +239,6 @@ class _ConnectionAdvertisingScreenState
     String parentDir = "/storage/emulated/0/SyncPact";
     final b = await Nearby().copyFileAndDeleteOriginal(
         uri, '$parentDir/$tempDirectoryName/$fileName');
-
-    // showSnackbar("Moved file:" + b.toString());
-
-    Directory dir =
-        Directory('/storage/emulated/0/SyncPact/$tempDirectoryName');
-    final files = (await dir.list(recursive: true).toList())
-        .map((f) => f.path)
-        .toList()
-        .join('\n');
-    // showSnackbar(files);
-    // navigateToFileListScreen();
     return b;
   }
 

@@ -13,7 +13,6 @@ class LandingScreen extends StatelessWidget {
             child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
                 'SyncPact',

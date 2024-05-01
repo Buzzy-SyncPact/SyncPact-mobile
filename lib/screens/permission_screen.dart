@@ -29,7 +29,6 @@ class _PermissionScreenState extends State<PermissionScreen> {
 
   void checkPermissions() async {
     bool locationGranted = await Permission.location.isGranted;
-    // bool storageGranted = await Permission.storage.isGranted;
     bool bluetoothGranted = await Permission.bluetooth.isGranted;
     bool storageGranted =
         await Permission.manageExternalStorage.request().isGranted;
@@ -42,7 +41,6 @@ class _PermissionScreenState extends State<PermissionScreen> {
   }
 
   void checkLocationEnabled() async {
-    // bool enabled = await Nearby().checkLocationEnabled();
     bool enabled = await Permission.location.isGranted;
     setState(() {
       locationEnabled = enabled;
@@ -63,7 +61,6 @@ class _PermissionScreenState extends State<PermissionScreen> {
   }
 
   Future<void> requestLocationPermission() async {
-    // bool isLocationPermissionGranted = await Nearby().askLocationPermission();
     PermissionStatus locationPermissionStatus =
         await Permission.location.request();
     bool isLocationPermissionGranted =
@@ -76,20 +73,15 @@ class _PermissionScreenState extends State<PermissionScreen> {
   }
 
   Future<void> requestStoragePermission() async {
-    // Nearby().askExternalStoragePermission();
-    // await Permission.storage.request();
     await Permission.manageExternalStorage.request();
     setState(() {
       externalStoragePermissionGranted = true;
     });
-    // bool c = await  Nearby().checkExternalStoragePermission();
-    // bool c = await Permission.storage.isGranted;
     bool c = await Permission.manageExternalStorage.request().isGranted;
     print(c);
   }
 
   Future<void> requestBluetoothPermission() async {
-    // Nearby().askBluetoothPermission();
     [
       Permission.bluetooth,
       Permission.bluetoothAdvertise,
@@ -100,9 +92,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
     setState(() {
       bluetoothPermissionGranted = true;
     });
-    // bool isBluetoothPermissionGranted = await Nearby().checkBluetoothPermission();
     bool isBluetoothPermissionGranted = !(await Future.wait([
-      // Check
       Permission.bluetooth.isGranted,
       Permission.bluetoothAdvertise.isGranted,
       Permission.bluetoothConnect.isGranted,
@@ -229,7 +219,6 @@ class _PermissionScreenState extends State<PermissionScreen> {
                       width: 350,
                       child: ElevatedButton(
                         onPressed: (locationPermissionGranted &&
-                                // externalStoragePermissionGranted &&
                                 bluetoothPermissionGranted)
                             ? navigateToFileShareScreen
                             : null,

@@ -48,15 +48,9 @@ class _ConnectionDiscoveringScreenState
     startDiscovery();
   }
 
-  // @override
-  // void dispose() {
-  //   stopDiscovery();
-  //   super.dispose();
-  // }
-
   Future<void> startDiscovery() async {
     try {
-      bool start = await Nearby().startDiscovery(
+      bool startDiscovery = await Nearby().startDiscovery(
         userName,
         strategy,
         onEndpointFound: (id, name, serviceId) {
@@ -70,9 +64,6 @@ class _ConnectionDiscoveringScreenState
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      // Text("id: $id"),
-                      // Text("Name: $name"),
-                      // Text("ServiceId: $serviceId"),
                       Text("Id: $id"),
                       SizedBox(
                         height: 10,
@@ -103,15 +94,12 @@ class _ConnectionDiscoveringScreenState
                             onConnectionInitiated: (id, info) {
                               onConnectionInit(id, info);
                             },
-                            onConnectionResult: (id, status) {
-                              // showSnackbar(status);
-                            },
+                            onConnectionResult: (id, status) {},
                             onDisconnected: (id) {
                               setState(() {
                                 endpointMap.remove(id);
                               });
                               showSnackbar("Device Disconnected");
-                              // "Disconnected from: ${endpointMap[id]!.endpointName}, id $id");
                             },
                           );
                         },
@@ -125,13 +113,10 @@ class _ConnectionDiscoveringScreenState
         },
         onEndpointLost: (id) {
           showSnackbar("Device Disconnected");
-          // "Lost discovered Endpoint: ${endpointMap[id]!.endpointName}, id $id");
         },
       );
-      // showSnackbar("DISCOVERING: " + a.toString());
       showSnackbar("DISCOVERING Devices");
     } catch (e) {
-      // showSnackbar(e);
       print(e);
     }
   }
@@ -145,16 +130,12 @@ class _ConnectionDiscoveringScreenState
     final b = await Nearby().copyFileAndDeleteOriginal(
         uri, '$parentDir/${widget.directory_name}/$fileName');
 
-    // showSnackbar("Moved file:" + b.toString());
-
     Directory dir =
         Directory('/storage/emulated/0/SyncPact/${widget.directory_name}');
     final files = (await dir.list(recursive: true).toList())
         .map((f) => f.path)
         .toList()
         .join('\n');
-    // showSnackbar(files);
-    // navigateToFileListScreen();
     return b;
   }
 
@@ -215,15 +196,10 @@ class _ConnectionDiscoveringScreenState
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // Text("id: $id"),
-              // Text("Token: ${info.authenticationToken}"),
-              // Text("Name${info.endpointName}"),
-              // Text("Incoming: ${info.isIncomingConnection}"),
               Text("Id: $id"),
               SizedBox(
                 height: 10,
               ),
-              // Text("Token: ${info.authenticationToken}"),
               Text("Name: ${info.endpointName}"),
               SizedBox(
                 height: 10,
@@ -288,10 +264,6 @@ class _ConnectionDiscoveringScreenState
                         showSnackbar("FAILED to transfer file");
                       } else if (payloadTransferUpdate.status ==
                           PayloadStatus.SUCCESS) {
-                        // showSnackbar(
-                        //     // "$endid success, total bytes = ${payloadTransferUpdate.totalBytes}");
-                        //   "File transfer success.");
-
                         if (map.containsKey(payloadTransferUpdate.id)) {
                           //rename the file now
                           String name = map[payloadTransferUpdate.id]!;
@@ -322,7 +294,6 @@ class _ConnectionDiscoveringScreenState
                   try {
                     await Nearby().rejectConnection(id);
                   } catch (e) {
-                    // showSnackbar(e);
                     print(e);
                   }
                 },
@@ -389,8 +360,7 @@ class _ConnectionDiscoveringScreenState
                         },
                         child: const Text("Start Backup"),
                       ),
-                      const SizedBox(
-                          width: 8), // Add some spacing between buttons
+                      const SizedBox(width: 8),
                       ElevatedButton(
                         onPressed: () async {
                           setState(() {

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'selected_folders_screen.dart';
 import 'folder_selection_screen.dart';
@@ -17,8 +16,6 @@ class HomeScreen extends StatelessWidget {
     Directory parentDirectory = Directory(parentDirectoryPath);
     Directory newDirectory =
         Directory('${parentDirectory.path}/$newDirectoryName');
-    // String dir_path = parentDirectory.path + '/SyncPact';
-    // Directory newDirectory = Directory(dir_path);
 
     if (!newDirectory.existsSync()) {
       newDirectory.createSync();
@@ -94,7 +91,6 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    // MaterialPageRoute(builder: (context) => SelectedFoldersScreen()),
                     MaterialPageRoute(
                         builder: (context) => const SelectedFoldersScreen()),
                   );
