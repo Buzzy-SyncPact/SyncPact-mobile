@@ -13,25 +13,20 @@ class FolderSelectionScreen extends StatefulWidget {
 }
 
 class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
-  // Folder selected_folder =
-  //     Folder('', Directory('/storage/emulated/0/SyncPact'));
   late Folder selected_folder;
   List<FileSystemEntity> files = [];
 
   @override
   void initState() {
     super.initState();
-    // selected_folder = Folder('', Directory(''));
     pickDirectory();
   }
 
   void pickDirectory() async {
     try {
-      // Open the file picker to select a folder
       String? folderPath = await FilePicker.platform.getDirectoryPath();
       fetchFiles(folderPath!);
     } catch (e) {
-      // Handle any error that occurs during file selection
       print('Error: $e');
     }
   }
@@ -125,8 +120,6 @@ class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
               itemBuilder: (context, index) {
                 FileSystemEntity file = files[index];
                 String fileName = file.path.split('/').last;
-
-                // Determine the icon based on the file type
                 IconData fileIcon;
                 if (file is File) {
                   fileIcon = Icons.insert_drive_file;
@@ -139,9 +132,7 @@ class _FolderSelectionScreenState extends State<FolderSelectionScreen> {
                 return ListTile(
                   leading: Icon(fileIcon),
                   title: Text(fileName),
-                  onTap: () {
-                    // Handle file selection if needed
-                  },
+                  onTap: () {},
                 );
               },
             ),
