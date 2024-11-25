@@ -33,7 +33,6 @@ class _SelectedFoldersScreenState extends State<SelectedFoldersScreen> {
         folders = folderList;
       });
     } catch (e) {
-      // Handle any error that occurs during file selection
       print('Error: $e');
     }
   }
@@ -145,8 +144,6 @@ class FolderContentScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               FileSystemEntity entity = entities[index];
               String entityName = entity.path.split('/').last;
-
-              // Determine the icon based on the entity type
               IconData entityIcon;
               if (entity is File) {
                 entityIcon = Icons.insert_drive_file;
@@ -172,7 +169,6 @@ class FolderContentScreen extends StatelessWidget {
       List<FileSystemEntity> entities = await folder.list().toList();
       return entities;
     } catch (e) {
-      // Handle any error that occurs during folder content retrieval
       print('Error: $e');
       return [];
     }

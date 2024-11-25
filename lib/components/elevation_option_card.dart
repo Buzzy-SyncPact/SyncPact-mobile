@@ -12,7 +12,6 @@ class ElevatedOptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         elevation: 10.0,
-        // shadowColor: Colors.black.withOpacity(0.0),
         shadowColor: Color.fromARGB(255, 21, 21, 21),
         surfaceTintColor: Colors.white,
         shape: RoundedRectangleBorder(

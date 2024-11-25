@@ -9,7 +9,6 @@ class ElevatedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 10.0,
-      // shadowColor: Colors.black.withOpacity(0.0),
       shadowColor: Color.fromARGB(255, 21, 21, 21),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
@@ -23,7 +22,6 @@ class ElevatedCard extends StatelessWidget {
             fontSize: 18,
             color: Color.fromARGB(255, 255, 255, 255),
           ),
-          // textAlign: TextAlign.start,
         ),
       ),
     );
